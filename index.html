@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="./scripts/app.js"></script>
+    <script type="module" src="./scripts/app.js" defer></script>
     <link rel="stylesheet" href="./style/styles.css">
     <title>Audio Caddy</title>
 </head>
@@ -17,6 +17,7 @@
                 <input type="email" placeholder="name@example.com" name="email">
                 <label for="password">Password:</label>
                 <input type="password" name="password">
+                <button type="submit" class="btn btn-auth-submit">Submit</button>
             </form>
             <h2>Returning User? Sign In</h2>
             <form id="sign-in-container">
@@ -24,8 +25,10 @@
                 <input type="email" placeholder="name@example.com" name="email">
                 <label for="password">Password:</label>
                 <input type="password" name="password">
+                <button type="submit" class="btn btn-auth-submit">Submit</button>
             </form>
         </div>
+        <div id="message-container"></div>
         <div id="index-container" class="hide">
             <h2>Records</h2>
         </div>
