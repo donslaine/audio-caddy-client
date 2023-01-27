@@ -17,6 +17,7 @@ import {
     onEditButtonClick,
     onUpdateRecordSuccess,
     onCreateRecordSuccess,
+    onDeleteRecordSuccess
 } from './ui.js'
 
 const signUpContainer = document.getElementById('sign-up-container')
@@ -113,7 +114,11 @@ editRecordContainer.addEventListener('submit', (event) => {
 
 editRecordContainer.addEventListener('click', (event) => {
     event.preventDefault()
-
+    const id = event.target.getAttribute('data-id')
+    if(!id) return
+    deleteRecord(id)
+        .then(onDeleteRecordSuccess)
+        .catch(onFailure)
 })
 
 createButton.addEventListener('click', () => {

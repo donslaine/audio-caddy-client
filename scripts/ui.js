@@ -72,14 +72,11 @@ export const onEditButtonClick = (record) => {
             <input class="update-form" type="number" name="printYear" value="${record.printYear}">
             <button type="submit" id="update-record" class="btn btn-update">Update Record</button>
         </form>    
-            <button type="button" id="delete-button class="btn btn-delete">Delete Record</button>
+            <button type="button" id="delete-button class="btn btn-delete" data-id="${record._id}">Delete Record</button>
     `
     editRecordContainer.appendChild(div)
 }
 
-// export const onCreateButtonClick = () => {
-
-// }
 export const onCreateRecordSuccess = () => {
     messageContainer.innerText = 'You have successfully created a Record'
 }
@@ -91,11 +88,3 @@ export const onUpdateRecordSuccess = () => {
 export const onDeleteRecordSuccess = () => {
     messageContainer.innerText = 'You have successfully deleted a Record'
 }
-
-
-
-// ${record.genre} ${record.condition}
-// ${record.printYear} ${record.owner}
-// ${record.comments}
-
-// <button type="button" class="btn btn-delete">Delete Record</button>
