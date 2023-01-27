@@ -5,6 +5,7 @@ const authContainer = document.getElementById('auth-container')
 const indexContainer = document.getElementById('index-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const editRecordContainer = document.getElementById('edit-record-container')
+const mainContainer = document.getElementById('main-container')
 
 export const onFailure = (error) => {
     messageContainer.innerHTML = `
@@ -31,9 +32,8 @@ export const onIndexRecordsSuccess = (records) => {
         const div = document.createElement('div')
         div.classList.add('record-card')
         div.innerHTML = `
-            <h3>
-                ${record.artist} ${record.album}
-            </h3>
+            <h3>${record.artist}</h3>
+            <h3>${record.album}</h3>
             <button type="button" class="btn show-btn" data-id="${record._id}">Show Record</button>
         `
         indexContainer.appendChild(div)
@@ -43,18 +43,33 @@ export const onIndexRecordsSuccess = (records) => {
 export const onShowRecordSuccess = (record) => {
     indexContainer.classList.add('hide')
     showRecordContainer.classList.remove('hide')
+    mainContainer.classList.remove('hide')
     editRecordContainer.classList.remove('hide')
     const div = document.createElement('div')
     div.classList.add('show-card')
     div.innerHTML = `
             <h2>Record</h2>
-            <h3>${record.artist} ${record.album}</h3>
-            <h3>${record.genre} ${record.condition}</h3>
-            <h3>${record.printYear} ${record.owner}</h3>
-            <p>${record.comments}</p>
+            <h3>Artist: ${record.artist}</h3> 
+            <h3>Album: ${record.album}</h3>
+            <h3>Genre(s): ${record.genre}</h3>
+            <h3>Condition: ${record.condition}</h3>
+            <h3>Print Year: ${record.printYear}</h3>
+            <form data-id="${record._id}">
+                <input class="comment-form" type="text" name="body" placeholder="comment">
+                <button type="submit" id="create-comment" class="btn btn-create">Create Comment</button>
+            </form>
             <button type="button" class="btn btn-update" data-id="${record._id}">Edit Record</button>
     `
     showRecordContainer.appendChild(div)
+    const comments = record.comments;
+    comments.forEach(element => {
+    const comment = document.createElement('p')
+    comment.classList.add('comment')
+    comment.innerHTML = `
+        <p>${element.body}</p>
+    `
+    div.appendChild(comment)
+    })
 }
 
 export const onEditButtonClick = (record) => {
@@ -87,4 +102,12 @@ export const onUpdateRecordSuccess = () => {
 
 export const onDeleteRecordSuccess = () => {
     messageContainer.innerText = 'You have successfully deleted a Record'
+}
+
+export const onCreateCommentSuccess = () => {
+    messageContainer.innerText = 'You have successfully created a Comment'
+}
+
+export const onDeleteCommentSuccess = () => {
+    messageContainer.innerText = 'You have successfully deleted a Comment'
 }

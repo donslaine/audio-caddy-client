@@ -6,6 +6,8 @@ import {
     showRecord,
     updateRecord,
     deleteRecord,
+    createComment,
+    deleteComment
 } from './api.js'
 
 import {
@@ -17,7 +19,9 @@ import {
     onEditButtonClick,
     onUpdateRecordSuccess,
     onCreateRecordSuccess,
-    onDeleteRecordSuccess
+    onDeleteRecordSuccess,
+    onCreateCommentSuccess,
+    onDeleteCommentSuccess
 } from './ui.js'
 
 const signUpContainer = document.getElementById('sign-up-container')
@@ -27,7 +31,7 @@ const indexContainer = document.getElementById('index-container')
 const editRecordContainer = document.getElementById('edit-record-container')
 const commentContainer = document.getElementById('comment-container')
 const createButton = document.getElementById('create-button')
-const authContainer = document.getElementById('auth-container')
+// const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
 const mainContainer = document.getElementById('main-container')
@@ -109,7 +113,7 @@ editRecordContainer.addEventListener('submit', (event) => {
     }
     updateRecord(recordData, id)
         .then(onUpdateRecordSuccess)
-        .catch(onFailure)
+        .catch(onFailure) 
 })
 
 editRecordContainer.addEventListener('click', (event) => {
@@ -148,6 +152,17 @@ homeButton.addEventListener('click', () => {
     createContainer.classList.add('hide')
 })
 
-// deleteButton.addEventListener('click', () => {
-
-// })
+//Comment actions
+showRecordContainer.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const id = event.target.getAttribute('data-id')
+    const commentData = {
+        comment: {
+            body: event.target['body'].value,
+            recordId: id
+        }
+    }
+    createComment(commentData)
+        .then(onCreateCommentSuccess)
+        .catch(onFailure)
+})
