@@ -1,4 +1,4 @@
-import { store } from './store.js'
+import { bank } from './tokenBank.js'
 
 //User actions
 export const signUp = (data) => {
@@ -30,7 +30,7 @@ export const createRecord = (data) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${store.userToken}`
+            'Authorization': `Bearer ${bank.userToken}`
         },
         body: JSON.stringify(data)
     })
@@ -39,7 +39,7 @@ export const createRecord = (data) => {
 export const indexRecord = () => {
     return fetch(`http://localhost:8000/records`, {
         headers: {
-            'Authorization': `Bearer ${store.userToken}`
+            'Authorization': `Bearer ${bank.userToken}`
         }
     })
 }
@@ -47,7 +47,7 @@ export const indexRecord = () => {
 export const showRecord = (id) => {
     return fetch(`http://localhost:8000/records/${id}`, {
         headers: {
-            'Authorization': `Bearer ${store.userToken}`
+            'Authorization': `Bearer ${bank.userToken}`
         }
     })
 }
@@ -58,7 +58,7 @@ export const updateRecord = (data, id) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${store.userToken}`
+            'Authorization': `Bearer ${bank.userToken}`
         },
         body: JSON.stringify(data)
     })
@@ -68,7 +68,7 @@ export const deleteRecord = (id) => {
     return fetch(`http://localhost:8000/records/${id}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${store.userToken}`
+            'Authorization': `Bearer ${bank.userToken}`
         }
     })
 }

@@ -15,15 +15,19 @@ import {
     onIndexRecordsSuccess,
     onShowRecordSuccess,
     onEditButtonClick,
-    onUpdateRecordSuccess
+    onUpdateRecordSuccess,
+    onCreateRecordSuccess,
 } from './ui.js'
 
-const signUpContainer = document.querySelector('#sign-up-container')
-const signInContainer = document.querySelector('#sign-in-container')
-const showRecordContainer = document.querySelector('#show-record-container')
-const indexContainer = document.querySelector('#index-container')
-const editRecordContainer = document.querySelector('#edit-record-container')
-const commentContainer = document.querySelector('#comment-container')
+const signUpContainer = document.getElementById('sign-up-container')
+const signInContainer = document.getElementById('sign-in-container')
+const showRecordContainer = document.getElementById('show-record-container')
+const indexContainer = document.getElementById('index-container')
+const editRecordContainer = document.getElementById('edit-record-container')
+const commentContainer = document.getElementById('comment-container')
+const createButton = document.getElementById('create-button')
+const authContainer = document.getElementById('auth-container')
+const createContainer = document.getElementById('create-container')
 
 //User actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -56,6 +60,7 @@ signInContainer.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
+// 
 indexContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
 
@@ -82,8 +87,9 @@ showRecordContainer.addEventListener('click', (event) => {
 		.catch(onFailure)
 })
 
-editRecordContainer.addEventListener = ('submit', (event) => {
+editRecordContainer.addEventListener = ('click', (event) => {
     event.preventDefault()
+    console.log(event)
     const id = event.target.getAttribute('data-id')
 
     if (!id) return
@@ -93,10 +99,32 @@ editRecordContainer.addEventListener = ('submit', (event) => {
             artist: event.target['artist'].value,
             album: event.target['album'].value,
             genre: event.target['genre'].value,
-            condition: event.target['condition'].value
+            condition: event.target['condition'].value,
+            printYear: event.target['printYear'].value
         },
     }
     updateRecord(recordData, id)
         .then(onUpdateRecordSuccess)
+        .catch(onFailure)
+})
+
+createButton.addEventListener('click', () => {
+    authContainer.classList.add('hide')
+    createContainer.classList.remove('hide')
+})
+
+createContainer.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const recordData = {
+        record: {
+            artist: event.target['artist'].value,
+            album: event.target['album'].value,
+            genre: event.target['genre'].value,
+            condition: event.target['condition'].value,
+            printYear: event.target['printYear'].value
+        },
+    }
+    createRecord(recordData)
+        .then(onCreateRecordSuccess)
         .catch(onFailure)
 })

@@ -1,10 +1,10 @@
-import { store } from './store.js'
+import { bank } from './tokenBank.js'
 
-const messageContainer = document.querySelector('#message-container')
-const authContainer = document.querySelector('#auth-container')
-const indexContainer = document.querySelector('#index-container')
-const showRecordContainer = document.querySelector('#show-record-container')
-const editRecordContainer = document.querySelector('#edit-record-container')
+const messageContainer = document.getElementById('message-container')
+const authContainer = document.getElementById('auth-container')
+const indexContainer = document.getElementById('index-container')
+const showRecordContainer = document.getElementById('show-record-container')
+const editRecordContainer = document.getElementById('edit-record-container')
 
 export const onFailure = (error) => {
     messageContainer.innerHTML = `
@@ -20,7 +20,7 @@ export const onSignUpSuccess = () => {
 
 export const onSignInSuccess = (userToken) => {
     messageContainer.innerHTML = ''
-    store.userToken = userToken
+    bank.userToken = userToken
     authContainer.classList.add('hide')
     indexContainer.classList.remove('hide')
 }
@@ -59,19 +59,28 @@ export const onShowRecordSuccess = (record) => {
 export const onEditButtonClick = (record) => {
     showRecordContainer.classList.add('hide')
     editRecordContainer.classList.remove('hide')
+    
     const div = document.createElement('div')
     div.classList.add('edit-card')
     div.innerHTML = `
         <form data-id="${record._id}">
-            <input class="form-control" type="text" name="artist" value="${record.artist}">
-            <input class="form-control" type="text" name="album" value="${record.album}">
-            <input class="form-control" type="text" name="genre" value="${record.genre}">
-            <input class="form-control" type="number" name="printYear" value="${record.printYear}">
-            <button type="submit" class="btn btn-update">Update Record</button>
+            <input class="update-form" type="text" name="artist" value="${record.artist}">
+            <input class="update-form" type="text" name="album" value="${record.album}">
+            <input class="update-form" type="text" name="genre" value="${record.genre}">
+            <input class="update-form" type="text" name="condition" value="${record.condition}">
+            <input class="update-form" type="number" name="printYear" value="${record.printYear}">
+            <button type="button" class="btn btn-update">Update Record</button>
         </form>    
             <button type="button" class="btn btn-delete">Delete Record</button>
     `
     editRecordContainer.appendChild(div)
+}
+
+// export const onCreateButtonClick = () => {
+
+// }
+export const onCreateRecordSuccess = () => {
+    messageContainer.innerText = 'You have successfully created a Record'
 }
 
 export const onUpdateRecordSuccess = () => {
