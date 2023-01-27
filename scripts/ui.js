@@ -43,6 +43,7 @@ export const onIndexRecordsSuccess = (records) => {
 export const onShowRecordSuccess = (record) => {
     indexContainer.classList.add('hide')
     showRecordContainer.classList.remove('hide')
+    editRecordContainer.classList.remove('hide')
     const div = document.createElement('div')
     div.classList.add('show-card')
     div.innerHTML = `
@@ -69,9 +70,9 @@ export const onEditButtonClick = (record) => {
             <input class="update-form" type="text" name="genre" value="${record.genre}">
             <input class="update-form" type="text" name="condition" value="${record.condition}">
             <input class="update-form" type="number" name="printYear" value="${record.printYear}">
-            <button type="button" class="btn btn-update">Update Record</button>
+            <button type="submit" id="update-record" class="btn btn-update">Update Record</button>
         </form>    
-            <button type="button" class="btn btn-delete">Delete Record</button>
+            <button type="button" id="delete-button class="btn btn-delete">Delete Record</button>
     `
     editRecordContainer.appendChild(div)
 }

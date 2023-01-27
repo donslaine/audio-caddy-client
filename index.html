@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" id="home-button" aria-current="page" href="#" disabled>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="create-button" href="#">Create</a>
+                        <a class="nav-link" id="create-button" href="#" disabled>Create</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </nav>
-    <main>
+    <main id="main-container">
         <div id="auth-container">
             <h2>New User? Sign Up</h2>
             <form id="sign-up-container">
@@ -54,9 +54,6 @@
         <div id="show-record-container" class="hide"></div>
         <div id="edit-record-container" class="hide"></div>
         <div id="comment-container" class="hide"></div>
-        <div id="index-container" class="hide">
-            <h2>Your Collection</h2>
-        </div>
     </main>
     <div id="create-container" class="hide">
         <form>
@@ -67,6 +64,9 @@
             <input class="update-form" type="number" name="printYear" placeholder="print year">
             <button type="submit" class="btn btn-create">Create Record</button>
         </form>
+    </div>
+    <div id="index-container" class="hide">
+        <h2>Your Collection</h2>
     </div>
 </body>
 </html>

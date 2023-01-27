@@ -72,3 +72,28 @@ export const deleteRecord = (id) => {
         }
     })
 }
+
+//comment actions
+export const createComment = (data) => {
+    return fetch(`http://localhost:8000/records`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${bank.userToken}`
+        },
+        body: JSON.stringify(data)
+    })
+}
+
+export const updateComment = (data, id) => {
+    return fetch(`http://localhost:8000/records/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${bank.userToken}`
+        },
+        body: JSON.stringify(data)
+    })
+}

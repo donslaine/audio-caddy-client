@@ -28,6 +28,9 @@ const commentContainer = document.getElementById('comment-container')
 const createButton = document.getElementById('create-button')
 const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
+const homeButton = document.getElementById('home-button')
+const mainContainer = document.getElementById('main-container')
+const deleteButton = document.getElementById('delete-button')
 
 //User actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -87,9 +90,9 @@ showRecordContainer.addEventListener('click', (event) => {
 		.catch(onFailure)
 })
 
-editRecordContainer.addEventListener = ('click', (event) => {
+editRecordContainer.addEventListener('submit', (event) => {
     event.preventDefault()
-    console.log(event)
+    
     const id = event.target.getAttribute('data-id')
 
     if (!id) return
@@ -108,8 +111,13 @@ editRecordContainer.addEventListener = ('click', (event) => {
         .catch(onFailure)
 })
 
+editRecordContainer.addEventListener('click', (event) => {
+    event.preventDefault()
+
+})
+
 createButton.addEventListener('click', () => {
-    authContainer.classList.add('hide')
+    mainContainer.classList.add('hide')
     createContainer.classList.remove('hide')
 })
 
@@ -128,3 +136,13 @@ createContainer.addEventListener('submit', (event) => {
         .then(onCreateRecordSuccess)
         .catch(onFailure)
 })
+
+homeButton.addEventListener('click', () => {
+    indexContainer.classList.remove('hide')
+    mainContainer.classList.add('hide')
+    createContainer.classList.add('hide')
+})
+
+// deleteButton.addEventListener('click', () => {
+
+// })
