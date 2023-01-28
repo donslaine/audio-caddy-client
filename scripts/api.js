@@ -86,11 +86,14 @@ export const createComment = (data) => {
     })
 }
 
-export const deleteComment = (id) => {
-    return fetch(`http://localhost:8000/records/${id}`, {
+export const deleteComment = (data, id) => {
+    return fetch(`http://localhost:8000/comments/${id}`, {
         method: 'DELETE',
         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${bank.userToken}`
         },
+        body: JSON.stringify(data)
     })
 }

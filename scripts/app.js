@@ -29,13 +29,13 @@ const signInContainer = document.getElementById('sign-in-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const indexContainer = document.getElementById('index-container')
 const editRecordContainer = document.getElementById('edit-record-container')
-const commentContainer = document.getElementById('comment-container')
+// const commentContainer = document.getElementById('comment-container')
 const createButton = document.getElementById('create-button')
 // const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
 const mainContainer = document.getElementById('main-container')
-const deleteButton = document.getElementById('delete-button')
+// const deleteButton = document.getElementById('delete-button')
 
 //User actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -73,7 +73,9 @@ indexContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
 
 	if (!id) return
-
+    while (showRecordContainer.firstChild) {
+        showRecordContainer.removeChild(showRecordContainer.firstChild)
+    }
 	showRecord(id)
 		.then((res) => res.json())
 		.then((res) => {
@@ -86,7 +88,6 @@ showRecordContainer.addEventListener('click', (event) => {
     const id = event.target.getAttribute('data-id')
 
     if (!id) return
-
     showRecord(id)
 		.then((res) => res.json())
 		.then((res) => {
@@ -166,3 +167,16 @@ showRecordContainer.addEventListener('submit', (event) => {
         .then(onCreateCommentSuccess)
         .catch(onFailure)
 })
+
+// showRecordContainer.addEventListener('click', (event) => {
+//     event.preventDefault()
+//     const id = event.target.getAttribute('data-id')
+//     const commentData = {
+//         comment: {
+//             recordId: id
+//         }
+//     }
+//     deleteComment(commentData, id)
+//         .then(onDeleteCommentSuccess)
+//         .catch(onFailure)
+// })
