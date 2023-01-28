@@ -24,12 +24,14 @@ export const onSignUpSuccess = () => {
 export const onSignInSuccess = (userToken) => {
     messageContainer.innerHTML = ''
     bank.userToken = userToken
-    authContainer.classList.add('hide')
-    indexContainer.classList.remove('hide')
 }
 
 //Record
 export const onIndexRecordsSuccess = (records) => {
+    const innerContainer = document.createElement('div')
+    while (indexContainer.firstChild) {
+        indexContainer.removeChild(indexContainer.firstChild)
+    }
     records.forEach((record) => {
         const div = document.createElement('div')
         div.classList.add('record-card')
@@ -38,15 +40,12 @@ export const onIndexRecordsSuccess = (records) => {
             <h3>${record.album}</h3>
             <button type="button" class="btn show-btn" data-id="${record._id}">Show Record</button>
         `
-        indexContainer.appendChild(div)
+        innerContainer.appendChild(div)
     })
+    indexContainer.appendChild(innerContainer)
 }
 
 export const onShowRecordSuccess = (record) => {
-    indexContainer.classList.add('hide')
-    showRecordContainer.classList.remove('hide')
-    mainContainer.classList.remove('hide')
-    editRecordContainer.classList.remove('hide')
     const div = document.createElement('div')
     div.classList.add('show-card')
     div.innerHTML = `
@@ -77,21 +76,21 @@ export const onShowRecordSuccess = (record) => {
 }
 
 export const onEditButtonClick = (record) => {
-    showRecordContainer.classList.add('hide')
-    editRecordContainer.classList.remove('hide')
+    // showRecordContainer.classList.add('hide')
+    // editRecordContainer.classList.remove('hide')
     
     const div = document.createElement('div')
     div.classList.add('edit-card')
     div.innerHTML = `
-        <form data-id="${record._id}">
+        <form data-id="${record._id}" id="update-form">
             <input class="update-form" type="text" name="artist" value="${record.artist}">
             <input class="update-form" type="text" name="album" value="${record.album}">
             <input class="update-form" type="text" name="genre" value="${record.genre}">
             <input class="update-form" type="text" name="condition" value="${record.condition}">
             <input class="update-form" type="number" name="printYear" value="${record.printYear}">
-            <button type="submit" id="update-record" class="btn btn-update">Update Record</button>
+            <button data-id="${record._id}" type="button" id="update-button" class="btn btn-update">Update Record</button>
         </form>    
-            <button type="button" id="delete-button class="btn btn-delete" data-id="${record._id}">Delete Record</button>
+            <button type="button" id="delete-button" class="btn btn-delete" data-id="${record._id}">Delete Record</button>
     `
     editRecordContainer.appendChild(div)
 }
@@ -116,4 +115,12 @@ export const onCreateCommentSuccess = () => {
 
 export const onDeleteCommentSuccess = () => {
     messageContainer.innerText = 'You have successfully deleted a Comment'
+}
+
+export const hideContainer = (container) => {
+    container.classList.add('hide')
+}
+
+export const showContainer = (container) => {
+    container.classList.remove('hide')
 }

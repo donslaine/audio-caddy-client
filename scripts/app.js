@@ -21,7 +21,9 @@ import {
     onCreateRecordSuccess,
     onDeleteRecordSuccess,
     onCreateCommentSuccess,
-    onDeleteCommentSuccess
+    onDeleteCommentSuccess,
+    showContainer,
+    hideContainer,
 } from './ui.js'
 
 const signUpContainer = document.getElementById('sign-up-container')
@@ -31,11 +33,13 @@ const indexContainer = document.getElementById('index-container')
 const editRecordContainer = document.getElementById('edit-record-container')
 // const commentContainer = document.getElementById('comment-container')
 const createButton = document.getElementById('create-button')
-// const authContainer = document.getElementById('auth-container')
+const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
-const mainContainer = document.getElementById('main-container')
+// const mainContainer = document.getElementById('main-container')
 // const deleteButton = document.getElementById('delete-button')
+// const updateRecordButton = document.getElementById('update-record')
+// const deleteRecordButton = document.getElementById('')
 
 //User actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -64,6 +68,8 @@ signInContainer.addEventListener('submit', (event) => {
         .then((res) => onSignInSuccess(res.token))
         .then(indexRecord)
         .then((res) => res.json())
+        .then(hideContainer(authContainer))
+        .then(showContainer(indexContainer))
         .then((res) => onIndexRecordsSuccess(res.records))
         .catch(onFailure)
 })
@@ -78,6 +84,8 @@ indexContainer.addEventListener('click', (event) => {
     }
 	showRecord(id)
 		.then((res) => res.json())
+        .then(showContainer(showRecordContainer))
+        .then(hideContainer(indexContainer))
 		.then((res) => {
 			onShowRecordSuccess(res.record)
 		})
@@ -90,45 +98,53 @@ showRecordContainer.addEventListener('click', (event) => {
     if (!id) return
     showRecord(id)
 		.then((res) => res.json())
+        .then(showContainer(editRecordContainer))
+        .then(hideContainer(showRecordContainer))
 		.then((res) => {
 			onEditButtonClick(res.record)
 		})
 		.catch(onFailure)
 })
 
-editRecordContainer.addEventListener('submit', (event) => {
-    event.preventDefault()
-    
-    const id = event.target.getAttribute('data-id')
-
-    if (!id) return
-
-    const recordData = {
-        record: {
-            artist: event.target['artist'].value,
-            album: event.target['album'].value,
-            genre: event.target['genre'].value,
-            condition: event.target['condition'].value,
-            printYear: event.target['printYear'].value
-        },
-    }
-    updateRecord(recordData, id)
-        .then(onUpdateRecordSuccess)
-        .catch(onFailure) 
-})
-
 editRecordContainer.addEventListener('click', (event) => {
     event.preventDefault()
-    const id = event.target.getAttribute('data-id')
-    if(!id) return
-    deleteRecord(id)
-        .then(onDeleteRecordSuccess)
-        .catch(onFailure)
+    let target = event.target
+    if (target.id === "update-button") {
+        const id = event.target.getAttribute('data-id')
+        if (!id) return
+        const recordData = {
+            record: {
+                artist: event.target['artist'].value,
+                album: event.target['album'].value,
+                genre: event.target['genre'].value,
+                condition: event.target['condition'].value,
+                printYear: event.target['printYear'].value
+            },
+        }
+        updateRecord(recordData, id)
+            .then(onUpdateRecordSuccess)
+            .then(indexRecord)
+            .then((res) => (res.json()))
+            .then((res) => onIndexRecordsSuccess(res.records))
+            .then(showContainer(indexContainer))
+            .then(hideContainer(editRecordContainer))
+            .catch(onFailure)
+    }
 })
 
+// editRecordContainer.addEventListener('click', (event) => {
+//     event.preventDefault()
+//     const id = event.target.getAttribute('data-id')
+//     if(!id) return
+//     deleteRecord(id)
+//         .then(onDeleteRecordSuccess)
+//         .catch(onFailure)
+// })
+
 createButton.addEventListener('click', () => {
-    mainContainer.classList.add('hide')
-    createContainer.classList.remove('hide')
+    showContainer(createContainer)
+    hideContainer(indexContainer)
+    // hideContainer(showRecordContainer)
 })
 
 createContainer.addEventListener('submit', (event) => {
@@ -144,13 +160,22 @@ createContainer.addEventListener('submit', (event) => {
     }
     createRecord(recordData)
         .then(onCreateRecordSuccess)
+        .then(indexRecord)
+        .then((res) => (res.json()))
+        .then((res) => onIndexRecordsSuccess(res.records))
+        .then(showContainer(indexContainer))
+        .then(hideContainer(createContainer))
         .catch(onFailure)
 })
 
 homeButton.addEventListener('click', () => {
     indexContainer.classList.remove('hide')
-    mainContainer.classList.add('hide')
+    // mainContainer.classList.add('hide')
     createContainer.classList.add('hide')
+    indexRecord()
+        .then((res) => (res.json()))
+        .then((res) => onIndexRecordsSuccess(res.records))
+        .catch(onFailure)
 })
 
 //Comment actions
@@ -180,3 +205,25 @@ showRecordContainer.addEventListener('submit', (event) => {
 //         .then(onDeleteCommentSuccess)
 //         .catch(onFailure)
 // })
+
+// var button = document.getElementById('button');
+//     button.addEventListener('click', function(e) {
+//         var target = e.target;
+//        switch(target.id) { ///check which button was clicked by id
+//               case 'button1':
+//                     // do something
+//                     break;
+//                 case 'button2':
+//                     // do something
+//                     break;
+//                 case 'button3':
+//                     // do something
+//                     break;
+//                 case 'button4':
+//                     // do something
+//                     break;
+//                     default:
+//                     // do something
+//                     break;
+//        }
+//     });
