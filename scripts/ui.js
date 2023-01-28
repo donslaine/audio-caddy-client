@@ -38,7 +38,8 @@ export const onIndexRecordsSuccess = (records) => {
         div.innerHTML = `
             <h3>${record.artist}</h3>
             <h3>${record.album}</h3>
-            <button type="button" class="btn show-btn" data-id="${record._id}">Show Record</button>
+            <button type="button" id="delete-button" class="btn show-btn" data-id="${record._id}">Show Record</button>
+            <button type="button" id="delete-button" class="btn btn-delete" data-id="${record._id}">Delete Record</button>
         `
         innerContainer.appendChild(div)
     })
@@ -88,9 +89,8 @@ export const onEditButtonClick = (record) => {
             <input class="update-form" type="text" name="genre" value="${record.genre}">
             <input class="update-form" type="text" name="condition" value="${record.condition}">
             <input class="update-form" type="number" name="printYear" value="${record.printYear}">
-            <button data-id="${record._id}" type="button" id="update-button" class="btn btn-update">Update Record</button>
+            <button data-id="${record._id}" type="submit" id="update-button" class="btn btn-update">Update Record</button>
         </form>    
-            <button type="button" id="delete-button" class="btn btn-delete" data-id="${record._id}">Delete Record</button>
     `
     editRecordContainer.appendChild(div)
 }

@@ -106,10 +106,13 @@ showRecordContainer.addEventListener('click', (event) => {
 		.catch(onFailure)
 })
 
-editRecordContainer.addEventListener('click', (event) => {
+editRecordContainer.addEventListener('submit', (event) => {
     event.preventDefault()
-    let target = event.target
-    if (target.id === "update-button") {
+    while (editRecordContainer.firstChild) {
+        editRecordContainer.removeChild(editRecordContainer.firstChild)
+    }
+    let target = event.target.getAttribute('id')
+    // if (target === 'update-form') {
         const id = event.target.getAttribute('data-id')
         if (!id) return
         const recordData = {
@@ -129,16 +132,24 @@ editRecordContainer.addEventListener('click', (event) => {
             .then(showContainer(indexContainer))
             .then(hideContainer(editRecordContainer))
             .catch(onFailure)
-    }
+    // } 
 })
 
 // editRecordContainer.addEventListener('click', (event) => {
 //     event.preventDefault()
-//     const id = event.target.getAttribute('data-id')
-//     if(!id) return
-//     deleteRecord(id)
-//         .then(onDeleteRecordSuccess)
-//         .catch(onFailure)
+//     let target = event.target.getAttribute('id')
+//     if (target === 'delete-button') {
+//         const id = event.target.getAttribute('data-id')
+//         if(!id) return
+//         deleteRecord(id)
+//             .then(onDeleteRecordSuccess)
+//             .then(indexRecord)
+//             .then((res) => (res.json()))
+//             .then((res) => onIndexRecordsSuccess(res.records))
+//             .then(showContainer(indexContainer))
+//             .then(hideContainer(editRecordContainer))
+//             .catch(onFailure)
+//     }
 // })
 
 createButton.addEventListener('click', () => {
@@ -169,9 +180,9 @@ createContainer.addEventListener('submit', (event) => {
 })
 
 homeButton.addEventListener('click', () => {
-    indexContainer.classList.remove('hide')
-    // mainContainer.classList.add('hide')
-    createContainer.classList.add('hide')
+
+    showContainer(indexContainer)
+    hideContainer()
     indexRecord()
         .then((res) => (res.json()))
         .then((res) => onIndexRecordsSuccess(res.records))
