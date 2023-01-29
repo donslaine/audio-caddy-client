@@ -38,7 +38,7 @@ export const onIndexRecordsSuccess = (records) => {
         div.innerHTML = `
             <h3>${record.artist}</h3>
             <h3>${record.album}</h3>
-            <button type="button" id="delete-button" class="btn show-btn" data-id="${record._id}">Show Record</button>
+            <button type="button" id="show-button" class="btn show-btn" data-id="${record._id}">Show Record</button>
             <button type="button" id="delete-button" class="btn btn-delete" data-id="${record._id}">Delete Record</button>
         `
         innerContainer.appendChild(div)
@@ -77,9 +77,9 @@ export const onShowRecordSuccess = (record) => {
 }
 
 export const onEditButtonClick = (record) => {
-    // showRecordContainer.classList.add('hide')
-    // editRecordContainer.classList.remove('hide')
-    
+    while (editRecordContainer.firstChild) {
+        editRecordContainer.removeChild(editRecordContainer.firstChild)
+    }
     const div = document.createElement('div')
     div.classList.add('edit-card')
     div.innerHTML = `

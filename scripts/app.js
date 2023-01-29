@@ -31,15 +31,10 @@ const signInContainer = document.getElementById('sign-in-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const indexContainer = document.getElementById('index-container')
 const editRecordContainer = document.getElementById('edit-record-container')
-// const commentContainer = document.getElementById('comment-container')
 const createButton = document.getElementById('create-button')
 const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
-// const mainContainer = document.getElementById('main-container')
-// const deleteButton = document.getElementById('delete-button')
-// const updateRecordButton = document.getElementById('update-record')
-// const deleteRecordButton = document.getElementById('')
 
 //User actions
 signUpContainer.addEventListener('submit', (event) => {
@@ -68,41 +63,46 @@ signInContainer.addEventListener('submit', (event) => {
         .then((res) => onSignInSuccess(res.token))
         .then(indexRecord)
         .then((res) => res.json())
+        .then((res) => onIndexRecordsSuccess(res.records))
         .then(hideContainer(authContainer))
         .then(showContainer(indexContainer))
-        .then((res) => onIndexRecordsSuccess(res.records))
         .catch(onFailure)
 })
 
-// 
 indexContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
-
+    const target = event.target.getAttribute('id')
 	if (!id) return
     while (showRecordContainer.firstChild) {
         showRecordContainer.removeChild(showRecordContainer.firstChild)
     }
-	showRecord(id)
-		.then((res) => res.json())
-        .then(showContainer(showRecordContainer))
-        .then(hideContainer(indexContainer))
-		.then((res) => {
-			onShowRecordSuccess(res.record)
-		})
-		.catch(onFailure)
+    if (target === 'show-button') {
+        showRecord(id)
+            .then((res) => res.json())
+            .then((res) => {onShowRecordSuccess(res.record)})
+            .then(showContainer(showRecordContainer))
+            .then(hideContainer(indexContainer))
+            .catch(onFailure)
+    } else if (target === 'delete-button') {
+        deleteRecord(id)
+            .then(onDeleteRecordSuccess)
+            .then(indexRecord)
+            .then((res) => (res.json()))
+            .then((res) => onIndexRecordsSuccess(res.records))
+            .then(showContainer(indexContainer))
+            .then(hideContainer(editRecordContainer))
+            .catch(onFailure)
+    }
 })
 
 showRecordContainer.addEventListener('click', (event) => {
     const id = event.target.getAttribute('data-id')
-
     if (!id) return
     showRecord(id)
 		.then((res) => res.json())
+        .then((res) => {onEditButtonClick(res.record)})
         .then(showContainer(editRecordContainer))
         .then(hideContainer(showRecordContainer))
-		.then((res) => {
-			onEditButtonClick(res.record)
-		})
 		.catch(onFailure)
 })
 
@@ -111,51 +111,30 @@ editRecordContainer.addEventListener('submit', (event) => {
     while (editRecordContainer.firstChild) {
         editRecordContainer.removeChild(editRecordContainer.firstChild)
     }
-    let target = event.target.getAttribute('id')
-    // if (target === 'update-form') {
-        const id = event.target.getAttribute('data-id')
-        if (!id) return
-        const recordData = {
-            record: {
-                artist: event.target['artist'].value,
-                album: event.target['album'].value,
-                genre: event.target['genre'].value,
-                condition: event.target['condition'].value,
-                printYear: event.target['printYear'].value
-            },
-        }
-        updateRecord(recordData, id)
-            .then(onUpdateRecordSuccess)
-            .then(indexRecord)
-            .then((res) => (res.json()))
-            .then((res) => onIndexRecordsSuccess(res.records))
-            .then(showContainer(indexContainer))
-            .then(hideContainer(editRecordContainer))
-            .catch(onFailure)
-    // } 
+    const id = event.target.getAttribute('data-id')
+    if (!id) return
+    const recordData = {
+        record: {
+            artist: event.target['artist'].value,
+            album: event.target['album'].value,
+            genre: event.target['genre'].value,
+            condition: event.target['condition'].value,
+            printYear: event.target['printYear'].value
+        },
+    }
+    updateRecord(recordData, id)
+        .then(onUpdateRecordSuccess)
+        .then(indexRecord)
+        .then((res) => (res.json()))
+        .then((res) => onIndexRecordsSuccess(res.records))
+        .then(showContainer(indexContainer))
+        .then(hideContainer(editRecordContainer))
+        .catch(onFailure)
 })
-
-// editRecordContainer.addEventListener('click', (event) => {
-//     event.preventDefault()
-//     let target = event.target.getAttribute('id')
-//     if (target === 'delete-button') {
-//         const id = event.target.getAttribute('data-id')
-//         if(!id) return
-//         deleteRecord(id)
-//             .then(onDeleteRecordSuccess)
-//             .then(indexRecord)
-//             .then((res) => (res.json()))
-//             .then((res) => onIndexRecordsSuccess(res.records))
-//             .then(showContainer(indexContainer))
-//             .then(hideContainer(editRecordContainer))
-//             .catch(onFailure)
-//     }
-// })
 
 createButton.addEventListener('click', () => {
     showContainer(createContainer)
     hideContainer(indexContainer)
-    // hideContainer(showRecordContainer)
 })
 
 createContainer.addEventListener('submit', (event) => {
@@ -180,9 +159,15 @@ createContainer.addEventListener('submit', (event) => {
 })
 
 homeButton.addEventListener('click', () => {
-
     showContainer(indexContainer)
-    hideContainer()
+    console.log(createContainer.classList[0])
+    if (createContainer.classList[0] !== 'hide') {
+        hideContainer(createContainer)
+    } else if (showRecordContainer.classList[0] !== 'hide') {
+        hideContainer(showRecordContainer)
+    } else if (editRecordContainer.classList[0] !== 'hide') {
+        hideContainer(editRecordContainer)
+    }
     indexRecord()
         .then((res) => (res.json()))
         .then((res) => onIndexRecordsSuccess(res.records))
