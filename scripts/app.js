@@ -26,6 +26,7 @@ import {
     hideContainer,
 } from './ui.js'
 
+const messageContainer = document.getElementById('message-container')
 const signUpContainer = document.getElementById('sign-up-container')
 const signInContainer = document.getElementById('sign-in-container')
 const showRecordContainer = document.getElementById('show-record-container')
@@ -82,7 +83,7 @@ indexContainer.addEventListener('click', (event) => {
             .then((res) => {onShowRecordSuccess(res.record)})
             .then(showContainer(showRecordContainer))
             .then(hideContainer(indexContainer))
-            .catch(onFailure)
+            .catch(console.error)
     } else if (target === 'delete-button') {
         deleteRecord(id)
             .then(onDeleteRecordSuccess)
@@ -103,7 +104,7 @@ showRecordContainer.addEventListener('click', (event) => {
         .then((res) => {onEditButtonClick(res.record)})
         .then(showContainer(editRecordContainer))
         .then(hideContainer(showRecordContainer))
-		.catch(onFailure)
+		.catch(console.error)
 })
 
 editRecordContainer.addEventListener('submit', (event) => {
@@ -160,7 +161,6 @@ createContainer.addEventListener('submit', (event) => {
 
 homeButton.addEventListener('click', () => {
     showContainer(indexContainer)
-    console.log(createContainer.classList[0])
     if (createContainer.classList[0] !== 'hide') {
         hideContainer(createContainer)
     } else if (showRecordContainer.classList[0] !== 'hide') {
@@ -168,6 +168,7 @@ homeButton.addEventListener('click', () => {
     } else if (editRecordContainer.classList[0] !== 'hide') {
         hideContainer(editRecordContainer)
     }
+    messageContainer.innerText = ''
     indexRecord()
         .then((res) => (res.json()))
         .then((res) => onIndexRecordsSuccess(res.records))
@@ -186,40 +187,10 @@ showRecordContainer.addEventListener('submit', (event) => {
     }
     createComment(commentData)
         .then(onCreateCommentSuccess)
-        .catch(onFailure)
+        .then(indexRecord)
+        .then((res) => (res.json()))
+        .then((res) => onIndexRecordsSuccess(res.records))
+        .then(showContainer(indexContainer))
+        .then(hideContainer(showRecordContainer))
+        .catch(console.error)
 })
-
-// showRecordContainer.addEventListener('click', (event) => {
-//     event.preventDefault()
-//     const id = event.target.getAttribute('data-id')
-//     const commentData = {
-//         comment: {
-//             recordId: id
-//         }
-//     }
-//     deleteComment(commentData, id)
-//         .then(onDeleteCommentSuccess)
-//         .catch(onFailure)
-// })
-
-// var button = document.getElementById('button');
-//     button.addEventListener('click', function(e) {
-//         var target = e.target;
-//        switch(target.id) { ///check which button was clicked by id
-//               case 'button1':
-//                     // do something
-//                     break;
-//                 case 'button2':
-//                     // do something
-//                     break;
-//                 case 'button3':
-//                     // do something
-//                     break;
-//                 case 'button4':
-//                     // do something
-//                     break;
-//                     default:
-//                     // do something
-//                     break;
-//        }
-//     });
