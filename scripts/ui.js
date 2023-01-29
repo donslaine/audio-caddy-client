@@ -1,18 +1,10 @@
 import { bank } from './tokenBank.js'
 
-import { 
-    indexRecord,
-    deleteComment
-} from './api.js'
-
 const messageContainer = document.getElementById('message-container')
-// const authContainer = document.getElementById('auth-container')
 const indexContainer = document.getElementById('index-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const editRecordContainer = document.getElementById('edit-record-container')
 const showCommentContainer = document.getElementById('show-comment-container')
-// const mainContainer = document.getElementById('main-container')
-// const createContainer = document.getElementById('create-container')
 
 // failure
 export const onFailure = (error) => {
@@ -33,24 +25,24 @@ export const onSignInSuccess = (userToken) => {
 }
 
 // Record/comment
-export const commentDeleter = (event) => {
-    event.preventDefault()
-    const commentId = event.target.getAttribute('data-comment')
-    const recordId = event.target.getAttribute('data-id')
-    const commentData = {
-        comment: {
-            recordId: recordId
-        }
-    }
-    deleteComment(commentData, commentId)
-            .then(onDeleteCommentSuccess)
-            .then(indexRecord)
-            .then((res) => (res.json()))
-            .then((res) => onIndexRecordsSuccess(res.records))
-            .then(showContainer(indexContainer))
-            .then(hideContainer(showRecordContainer))
-            .catch(onFailure)
-}
+// export const commentDeleter = (event) => {
+//     event.preventDefault()
+//     const commentId = event.target.getAttribute('data-comment')
+//     const recordId = event.target.getAttribute('data-id')
+//     const commentData = {
+//         comment: {
+//             recordId: recordId
+//         }
+//     }
+//     deleteComment(commentData, commentId)
+//             .then(onDeleteCommentSuccess)
+//             .then(indexRecord)
+//             .then((res) => (res.json()))
+//             .then((res) => onIndexRecordsSuccess(res.records))
+//             .then(showContainer(indexContainer))
+//             .then(hideContainer(showRecordContainer))
+//             .catch(onFailure)
+// }
 
 export const onIndexRecordsSuccess = (records) => {
     const innerContainer = document.createElement('div')
@@ -72,6 +64,7 @@ export const onIndexRecordsSuccess = (records) => {
 }
 
 export const onShowRecordSuccess = (record) => {
+    messageContainer.innerText = ''
     const div = document.createElement('div')
     div.classList.add('show-card')
     div.innerHTML = `
@@ -83,9 +76,9 @@ export const onShowRecordSuccess = (record) => {
         <h3>Print Year: ${record.printYear}</h3>
         <button type="button" class="btn btn-update" data-id="${record._id}">Edit Record</button>
         <hr>
-        <form data-id="${record._id}">
-            <input class="comment-form" type="text" name="body" placeholder="comment">
-            <button type="submit" id="create-comment" class="btn btn-create">Create Comment</button>
+        <form>
+            <input id="comment-form" type="text" name="body" placeholder="comment">
+            <button data-id="${record._id}" type="button" id="create-comment" class="btn btn-create">Create Comment</button>
         </form>
     `
     showRecordContainer.appendChild(div)
@@ -94,43 +87,17 @@ export const onShowRecordSuccess = (record) => {
         const comment = document.createElement('p')
         comment.classList.add('comment')
         comment.innerHTML = `
-            <p>"${element.body}"</p>
-            <button id="delete-comment" class="btn btn-update" data-id="${record._id}" data-comment="${element._id}">Delete</button>
+            <p>
+                "${element.body}"
+                <button id="delete-comment" class="btn btn-delete-comment" data-id="${record._id}" data-comment="${element._id}">Delete</button>
+            </p>
         `
-        showCommentContainer.appendChild(comment)
+        showRecordContainer.appendChild(comment)
     })
-    // const commentDelete = document.getElementById('delete-comment')
-    // for (let i = 0; i < commentDelete.length; i++) {
-    //     const oneComment = commentDelete[i]
-    //     oneComment.addEventListener('click', commentDeleter)
-    // }
-    // console.log(deleteComment)
-    // commentDelete.addEventListener('click', (event) => {
-        // const target = event.target.getAttribute('id')
-        // event.preventDefault()
-        // const commentId = event.target.getAttribute('data-comment')
-        // console.log(commentId)
-        // const recordId = event.target.getAttribute('data-id')
-        // console.log(recordId)
-        // const commentData = {
-        //     comment: {
-        //         recordId: recordId
-        //     }
-        // }
-        // deleteComment(commentData, commentId)
-        //     .then(onDeleteCommentSuccess)
-        //     .then(indexRecord)
-        //     .then((res) => (res.json()))
-        //     .then((res) => onIndexRecordsSuccess(res.records))
-        //     .then(showContainer(indexContainer))
-        //     .then(hideContainer(showRecordContainer))
-        //     .catch(onFailure)
-    // }
-    // })
-
 }
 
 export const onEditButtonClick = (record) => {
+    messageContainer.innerText = ''
     while (editRecordContainer.firstChild) {
         editRecordContainer.removeChild(editRecordContainer.firstChild)
     }

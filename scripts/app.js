@@ -83,7 +83,7 @@ indexContainer.addEventListener('click', (event) => {
             .then((res) => {onShowRecordSuccess(res.record)})
             .then(showContainer(showRecordContainer))
             .then(hideContainer(indexContainer))
-            .catch(console.error)
+            .catch(onFailure)
     } else if (target === 'delete-button') {
         deleteRecord(id)
             .then(onDeleteRecordSuccess)
@@ -97,14 +97,51 @@ indexContainer.addEventListener('click', (event) => {
 })
 
 showRecordContainer.addEventListener('click', (event) => {
-    const id = event.target.getAttribute('data-id')
-    if (!id) return
-    showRecord(id)
-		.then((res) => res.json())
-        .then((res) => {onEditButtonClick(res.record)})
-        .then(showContainer(editRecordContainer))
-        .then(hideContainer(showRecordContainer))
-		.catch(console.error)
+    event.preventDefault()
+    if (event.target.classList.contains('btn-update')) {
+        const id = event.target.getAttribute('data-id')
+        if (!id) return
+        showRecord(id)
+            .then((res) => res.json())
+            .then((res) => {onEditButtonClick(res.record)})
+            .then(showContainer(editRecordContainer))
+            .then(hideContainer(showRecordContainer))
+            .catch(console.onFailure)
+    } else if (event.target.classList.contains('btn-delete-comment')) {
+        const commentId = event.target.getAttribute('data-comment')
+        const recordId = event.target.getAttribute('data-id')
+        const commentData = {
+            comment: {
+                recordId: recordId
+            }
+        }
+        deleteComment(commentData, commentId)
+            .then(onDeleteCommentSuccess)
+            .then(indexRecord)
+            .then((res) => (res.json()))
+            .then((res) => onIndexRecordsSuccess(res.records))
+            .then(showContainer(indexContainer))
+            .then(hideContainer(showRecordContainer))
+            .catch(onFailure)
+    } 
+    else if (event.target.classList.contains('btn-create')) {
+        const id = event.target.getAttribute('data-id')
+        const commentBox = document.getElementById('comment-form')
+        const commentData = {
+            comment: {
+                body: commentBox.value,
+                recordId: id
+            }
+        }
+        createComment(commentData)
+            .then(onCreateCommentSuccess)
+            .then(indexRecord)
+            .then((res) => (res.json()))
+            .then((res) => onIndexRecordsSuccess(res.records))
+            .then(showContainer(indexContainer))
+            .then(hideContainer(showRecordContainer))
+            .catch(onFailure)
+    }
 })
 
 editRecordContainer.addEventListener('submit', (event) => {
@@ -135,7 +172,14 @@ editRecordContainer.addEventListener('submit', (event) => {
 
 createButton.addEventListener('click', () => {
     showContainer(createContainer)
-    hideContainer(indexContainer)
+    if (indexContainer.classList[0] !== 'hide') {
+        hideContainer(indexContainer)
+    } else if (showRecordContainer.classList[0] !== 'hide') {
+        hideContainer(showRecordContainer)
+    } else if (editRecordContainer.classList[0] !== 'hide') {
+        hideContainer(editRecordContainer)
+    }
+    messageContainer.innerText = ''
 })
 
 createContainer.addEventListener('submit', (event) => {
@@ -173,24 +217,4 @@ homeButton.addEventListener('click', () => {
         .then((res) => (res.json()))
         .then((res) => onIndexRecordsSuccess(res.records))
         .catch(onFailure)
-})
-
-//Comment actions
-showRecordContainer.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const id = event.target.getAttribute('data-id')
-    const commentData = {
-        comment: {
-            body: event.target['body'].value,
-            recordId: id
-        }
-    }
-    createComment(commentData)
-        .then(onCreateCommentSuccess)
-        .then(indexRecord)
-        .then((res) => (res.json()))
-        .then((res) => onIndexRecordsSuccess(res.records))
-        .then(showContainer(indexContainer))
-        .then(hideContainer(showRecordContainer))
-        .catch(console.error)
 })
