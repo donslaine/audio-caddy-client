@@ -9,20 +9,20 @@
     <link rel="stylesheet" href="./style/styles.css">
     <title>Audio Caddy</title>
 </head>
-<body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+<body class="bg-dark text-white">
+    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary bg-dark text-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Audio Caddy</a>
+            <a class="navbar-brand" href="#" style="pointer-events: none">Audio Caddy</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-button" aria-current="page" href="#" disabled>Home</a>
+                        <a class="nav-link active" id="home-button" aria-current="page" href="#" style="pointer-events: none">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="create-button" href="#" disabled>Create</a>
+                        <a class="nav-link active" id="create-button" href="#" style="pointer-events: none">Create</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -50,18 +50,22 @@
             </form>
         </div>
         <div id="message-container"></div>
-        <div id="show-record-container" class="hide">
-            <!-- <div id="show-comment-container"></div> -->
-        </div>
+        <div id="show-record-container" class="hide"></div>
         <div id="edit-record-container" class="hide"></div>
-    <div id="create-container" class="hide">
+    <div id="create-container" class="hide container bg-dark text-white">
         <form>
-            <input class="update-form" type="text" name="artist" placeholder="artist">
-            <input class="update-form" type="text" name="album" placeholder="album">
-            <input class="update-form" type="text" name="genre" placeholder="genre(s)">
-            <input class="update-form" type="text" name="condition" placeholder="condition">
-            <input class="update-form" type="number" name="printYear" placeholder="print year">
-            <button type="submit" class="btn btn-create">Create Record</button>
+            <div class="container">
+                <input class="create-form" type="text" name="artist" placeholder="artist">
+                <input class="create-form" type="text" name="album" placeholder="album">
+            </div>
+            <div class="container">
+                <input class="create-form" type="text" name="genre" placeholder="genre(s)">
+                <input class="create-form" type="text" name="condition" placeholder="condition">
+            </div>
+            <div class="container">
+                <input class="create-form" type="number" name="printYear" placeholder="print year">
+                <button type="submit" class="btn btn-create">Create Record</button>
+            </div>    
         </form>
     </div>
     <div id="index-container" class="hide">

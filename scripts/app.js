@@ -53,6 +53,8 @@ signUpContainer.addEventListener('submit', (event) => {
 
 signInContainer.addEventListener('submit', (event) => {
     event.preventDefault()
+    homeButton.removeAttribute('style')
+    createButton.removeAttribute('style')
     const userData = {
         credentials: {
             email: event.target['email'].value,
