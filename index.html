@@ -13,70 +13,53 @@
     <title>Audio Caddy</title>
 </head>
 <body class="bg-dark text-white">
-    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary bg-dark text-white">
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark">
         <div class="container-fluid bg-dark">
             <a class="navbar-brand text-white" href="#" style="pointer-events: none">Audio Caddy</a>
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span> -->
-            <!-- </button> -->
-            <div class="collapse navbar-collapse" id="navbarText">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active text-white" id="home-button" aria-current="page" href="#" style="pointer-events: none">Home</a>
                     </li>
-                    <!-- <div class="dropdown"> -->
-                    <li class="nav-item-dropdown">
-                        <!-- <button id="create-button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Create
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <form>
-                                    <li><h3>Create A Record</h3></li> -->
-                                <!-- <li><a class="dropdown-item" href="#"><input class="dropdown-item create-form" type="text" name="artist" placeholder="artist"></a></li>
-                                <li><a class="dropdown-item" href="#"><input class="dropdown-item create-form" type="text" name="album" placeholder="album"></a></li>
-                                <li><a class="dropdown-item" href="#"><input class="dropdown-item create-form" type="text" name="genre" placeholder="genre(s)"></a></li>
-                                <li><a class="dropdown-item" href="#"><input class="dropdown-item create-form" type="text" name="condition" placeholder="condition"></a></li>
-                                <li><a class="dropdown-item" href="#"><input class="dropdown-item create-form" type="number" name="printYear" placeholder="print year"></a></li>
-                                <li><a class="dropdown-item" href="#"><button type="submit" class="btn btn-create btn-outline-light dropdown-item">Create Record</button></a></li>  -->
-                            <!-- </form> -->
-                        <!-- </ul> -->
+                    <li class="nav-item">
                         <a class="nav-link active text-white" id="create-button" href="#" style="pointer-events: none">Create</a>
                     </li>
                 </ul>
-                <span class="navbar-text text-white">
-                    Your record collection assistant
-                </span>
-            </div>
+            </div>    
+            <span class="navbar-text text-white">The record collector's assistant</span>
         </div>
     </nav>
-        <div id="auth-container" class="btn-group-sm form-1">
-            <div id="sign-up-container">
-                <h2>New User? Sign Up</h2>
-                <form class="auth-ctnr">
-                    <label for="email">Email Address:</label>
-                    <input type="email" placeholder="name@example.com" name="email">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password">
-                    <button type="submit" class="btn btn-outline-light">Sign Up</button>
-                </form>
-            </div>
-            <div id="sign-in-container">
-                <h2>Returning User? Sign In</h2>
-                <form class="auth-ctnr">
-                    <label for="email">Email address:</label>
-                    <input type="email" placeholder="name@example.com" name="email">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password">
-                    <button type="submit" class="btn btn-outline-light">Sign In</button>
-                </form>
-            </div>
+    <div id="auth-container" class="btn-group-sm form-1">
+        <div id="sign-up-container">
+            <h3>New User? Sign Up</h3>
+            <form class="auth-ctnr">
+                <label for="email">Email Address:</label>
+                <input type="email" placeholder="name@example.com" name="email">
+                <label for="password">Password:</label>
+                <input type="password" name="password">
+                <button type="submit" class="btn btn-outline-light">Sign Up</button>
+            </form>
         </div>
-        <div id="message-container"></div>
-        <div id="show-record-container" class="hide"></div>
-        <div id="edit-record-container" class="hide form-1"></div>
+        <div id="sign-in-container">
+            <h3>Returning User? Sign In</h3>
+            <form class="auth-ctnr">
+                <label for="email">Email address:</label>
+                <input type="email" placeholder="name@example.com" name="email">
+                <label for="password">Password:</label>
+                <input type="password" name="password">
+                <button type="submit" class="btn btn-outline-light">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <div id="message-container"></div>
+    <div id="show-record-container" class="hide"></div>
+    <div id="edit-record-container" class="hide container bg-dark text-white form-1"></div>
     <div id="create-container" class="hide container bg-dark text-white form-1">
         <form>
-            <h3>Create A Record</h3>
+            <h2>Create A Record</h2>
             <div class="container form-2">
                 <input class="create-form" type="text" name="artist" placeholder="artist">
                 <input class="create-form" type="text" name="album" placeholder="album">
@@ -91,8 +74,6 @@
             </div>    
         </form>
     </div>
-    <div id="index-container" class="hide index bg-dark text-white">
-        <h2>Your Collection</h2>
-    </div>
+    <div id="index-container" class="hide index bg-dark text-white"></div>
 </body>
 </html>

@@ -49,11 +49,11 @@ export const onShowRecordSuccess = (record) => {
     div.classList.add('show-card')
     div.innerHTML = `
         <h2>Record</h2>
-        <h3>Artist: ${record.artist}</h3> 
-        <h3>Album: ${record.album}</h3>
-        <h3>Genre(s): ${record.genre}</h3>
-        <h3>Condition: ${record.condition}</h3>
-        <h3>Print Year: ${record.printYear}</h3>
+        <h4>Artist: ${record.artist}</h4> 
+        <h4>Album: ${record.album}</h4>
+        <h4>Genre(s): ${record.genre}</h4>
+        <h4>Condition: ${record.condition}</h4>
+        <h4>Print Year: ${record.printYear}</h4>
         <button type="button" class="btn btn-update btn-outline-light" data-id="${record._id}">Edit Record</button>
         <hr>
         <form>
@@ -85,12 +85,19 @@ export const onEditButtonClick = (record) => {
     div.classList.add('edit-card')
     div.innerHTML = `
         <form data-id="${record._id}" id="update-form">
-            <input class="update-form" type="text" name="artist" value="${record.artist}">
-            <input class="update-form" type="text" name="album" value="${record.album}">
-            <input class="update-form" type="text" name="genre" value="${record.genre}">
-            <input class="update-form" type="text" name="condition" value="${record.condition}">
-            <input class="update-form" type="number" name="printYear" value="${record.printYear}">
-            <button data-id="${record._id}" type="submit" id="update-button" class="btn btn-outline-light">Update Record</button>
+            <h2>Update Your Record</h2>
+            <div class="container form-2">
+                <input class="update-form" type="text" name="artist" value="${record.artist}">
+                <input class="update-form" type="text" name="album" value="${record.album}">
+            </div>
+            <div class="container form-2">
+                <input class="update-form" type="text" name="genre" value="${record.genre}">
+                <input class="update-form" type="text" name="condition" value="${record.condition}">
+            </div>
+            <div class="container form-2 btn-group-sm">
+                <input class="update-form" type="number" name="printYear" value="${record.printYear}">
+                <button data-id="${record._id}" type="submit" id="update-button" class="btn btn-outline-light">Update Record</button>
+            </div>
         </form>    
     `
     editRecordContainer.appendChild(div)

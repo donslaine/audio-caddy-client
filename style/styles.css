@@ -3,6 +3,10 @@
     text-align: center;
 }
 
+h2 {
+    font-family: 'Montserrat Subrayada', sans-serif;
+}
+
 #message-container {
     margin: 50px 0 50px 0
 }
@@ -19,10 +23,12 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
 }
 
 .record-card {
     width: 300px;
+    margin: 30px 30px 30px 30px
 }
 
 .form-1 {
