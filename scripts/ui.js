@@ -4,7 +4,7 @@ const messageContainer = document.getElementById('message-container')
 const indexContainer = document.getElementById('index-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const editRecordContainer = document.getElementById('edit-record-container')
-const showCommentContainer = document.getElementById('show-comment-container')
+// const showCommentContainer = document.getElementById('show-comment-container')
 
 // failure
 export const onFailure = (error) => {
@@ -24,28 +24,7 @@ export const onSignInSuccess = (userToken) => {
     bank.userToken = userToken
 }
 
-// Record/comment
-// export const commentDeleter = (event) => {
-//     event.preventDefault()
-//     const commentId = event.target.getAttribute('data-comment')
-//     const recordId = event.target.getAttribute('data-id')
-//     const commentData = {
-//         comment: {
-//             recordId: recordId
-//         }
-//     }
-//     deleteComment(commentData, commentId)
-//             .then(onDeleteCommentSuccess)
-//             .then(indexRecord)
-//             .then((res) => (res.json()))
-//             .then((res) => onIndexRecordsSuccess(res.records))
-//             .then(showContainer(indexContainer))
-//             .then(hideContainer(showRecordContainer))
-//             .catch(onFailure)
-// }
-
 export const onIndexRecordsSuccess = (records) => {
-    const innerContainer = document.createElement('div')
     while (indexContainer.firstChild) {
         indexContainer.removeChild(indexContainer.firstChild)
     }
@@ -55,12 +34,13 @@ export const onIndexRecordsSuccess = (records) => {
         div.innerHTML = `
             <h3>${record.artist}</h3>
             <h3>${record.album}</h3>
-            <button type="button" id="show-button" class="btn show-btn" data-id="${record._id}">Show Record</button>
-            <button type="button" id="delete-button" class="btn btn-delete" data-id="${record._id}">Delete Record</button>
+            <div class="btn-group-sm" role="group">
+                <button type="button" id="show-button" class="btn btn-outline-light" data-id="${record._id}">Show Record</button>
+                <button type="button" id="delete-button" class="btn btn-outline-danger" data-id="${record._id}">Delete Record</button>
+            </div>
         `
-        innerContainer.appendChild(div)
+        indexContainer.appendChild(div)
     })
-    indexContainer.appendChild(innerContainer)
 }
 
 export const onShowRecordSuccess = (record) => {
@@ -74,11 +54,11 @@ export const onShowRecordSuccess = (record) => {
         <h3>Genre(s): ${record.genre}</h3>
         <h3>Condition: ${record.condition}</h3>
         <h3>Print Year: ${record.printYear}</h3>
-        <button type="button" class="btn btn-update" data-id="${record._id}">Edit Record</button>
+        <button type="button" class="btn btn-update btn-outline-light" data-id="${record._id}">Edit Record</button>
         <hr>
         <form>
             <input id="comment-form" type="text" name="body" placeholder="comment">
-            <button data-id="${record._id}" type="button" id="create-comment" class="btn btn-create">Create Comment</button>
+            <button data-id="${record._id}" type="button" id="create-comment" class="btn btn-create btn-outline-light">Create Comment</button>
         </form>
     `
     showRecordContainer.appendChild(div)
@@ -89,7 +69,7 @@ export const onShowRecordSuccess = (record) => {
         comment.innerHTML = `
             <p>
                 "${element.body}"
-                <button id="delete-comment" class="btn btn-delete-comment" data-id="${record._id}" data-comment="${element._id}">Delete</button>
+                <button id="delete-comment" class="btn btn-delete-comment btn-outline-danger" data-id="${record._id}" data-comment="${element._id}">Delete</button>
             </p>
         `
         showRecordContainer.appendChild(comment)
@@ -110,7 +90,7 @@ export const onEditButtonClick = (record) => {
             <input class="update-form" type="text" name="genre" value="${record.genre}">
             <input class="update-form" type="text" name="condition" value="${record.condition}">
             <input class="update-form" type="number" name="printYear" value="${record.printYear}">
-            <button data-id="${record._id}" type="submit" id="update-button" class="btn btn-update">Update Record</button>
+            <button data-id="${record._id}" type="submit" id="update-button" class="btn btn-outline-light">Update Record</button>
         </form>    
     `
     editRecordContainer.appendChild(div)
@@ -137,9 +117,13 @@ export const onDeleteCommentSuccess = () => {
 }
 
 export const hideContainer = (container) => {
-    container.classList.add('hide')
+    if (container.classList.contains('hide')) {
+        return
+    } else container.classList.add('hide')
 }
 
 export const showContainer = (container) => {
-    container.classList.remove('hide')
+    if (container.classList.contains('hide')) {
+        container.classList.remove('hide')
+    } else return
 }

@@ -1,6 +1,40 @@
 * {
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
+}
+
+#message-container {
+    margin: 50px 0 50px 0
+}
+
+.navbar-brand {
+    font-family: 'Montserrat Subrayada', sans-serif;
+}
+
+.auth-ctnr {
+    margin-top: 50px
+}
+
+.index {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.record-card {
+    width: 300px;
+}
+
+.form-1 {
+    margin-top: 200px
+}
+
+.form-2 {
+    margin: 10px 15px 10px 15px
+}
+
+#sign-in-container {
+    margin: 50px 0 50px 0
 }
 
 .hide {

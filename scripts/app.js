@@ -174,13 +174,9 @@ editRecordContainer.addEventListener('submit', (event) => {
 
 createButton.addEventListener('click', () => {
     showContainer(createContainer)
-    if (indexContainer.classList[0] !== 'hide') {
-        hideContainer(indexContainer)
-    } else if (showRecordContainer.classList[0] !== 'hide') {
-        hideContainer(showRecordContainer)
-    } else if (editRecordContainer.classList[0] !== 'hide') {
-        hideContainer(editRecordContainer)
-    }
+    hideContainer(indexContainer)
+    hideContainer(showRecordContainer)
+    hideContainer(editRecordContainer)
     messageContainer.innerText = ''
 })
 
@@ -207,13 +203,9 @@ createContainer.addEventListener('submit', (event) => {
 
 homeButton.addEventListener('click', () => {
     showContainer(indexContainer)
-    if (createContainer.classList[0] !== 'hide') {
-        hideContainer(createContainer)
-    } else if (showRecordContainer.classList[0] !== 'hide') {
-        hideContainer(showRecordContainer)
-    } else if (editRecordContainer.classList[0] !== 'hide') {
-        hideContainer(editRecordContainer)
-    }
+    hideContainer(createContainer)
+    hideContainer(showRecordContainer)
+    hideContainer(editRecordContainer)
     messageContainer.innerText = ''
     indexRecord()
         .then((res) => (res.json()))

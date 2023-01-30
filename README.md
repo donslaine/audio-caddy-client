@@ -31,6 +31,7 @@ Each record in the collection has a 'show record' button and a 'delete record' b
     - I want the ability for other users to view, share, and comment on each other's collection because it's fun to share your opinion with others.
     - I want an image to display for my collection entries because often album art is quite spectacular.
     - I want to be able to search for a record in my collection.
+    - I want the records to index in alphabetical order by artist.
 - Version 3
     - I want to be able to share my collection with someone because I think I have some cool stuff and I want everyone to know about it.
     - I want to be able to upload recordings of my records because I would like to listen to them on the go.
