@@ -108,7 +108,7 @@ showRecordContainer.addEventListener('click', (event) => {
             .then((res) => {onEditButtonClick(res.record)})
             .then(showContainer(editRecordContainer))
             .then(hideContainer(showRecordContainer))
-            .catch(console.onFailure)
+            .catch(onFailure)
     } else if (event.target.classList.contains('btn-delete-comment')) {
         const commentId = event.target.getAttribute('data-comment')
         const recordId = event.target.getAttribute('data-id')
