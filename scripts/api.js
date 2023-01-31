@@ -45,7 +45,7 @@ export const indexRecord = () => {
 }
 
 export const showRecord = (id) => {
-    return fetch(`https://evening-scrubland-04264.herokuapp.com/${id}`, {
+    return fetch(`https://evening-scrubland-04264.herokuapp.com/records/${id}`, {
         headers: {
             'Authorization': `Bearer ${bank.userToken}`
         }
@@ -53,7 +53,7 @@ export const showRecord = (id) => {
 }
 
 export const updateRecord = (data, id) => {
-    return fetch(`https://evening-scrubland-04264.herokuapp.com/${id}`, {
+    return fetch(`https://evening-scrubland-04264.herokuapp.com/records/${id}`, {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
@@ -65,7 +65,7 @@ export const updateRecord = (data, id) => {
 }
 
 export const deleteRecord = (id) => {
-    return fetch(`https://evening-scrubland-04264.herokuapp.com/${id}`, {
+    return fetch(`https://evening-scrubland-04264.herokuapp.com/records/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${bank.userToken}`
@@ -87,7 +87,7 @@ export const createComment = (data) => {
 }
 
 export const deleteComment = (data, id) => {
-    return fetch(`https://evening-scrubland-04264.herokuapp.com/${id}`, {
+    return fetch(`https://evening-scrubland-04264.herokuapp.com/comments/${id}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
