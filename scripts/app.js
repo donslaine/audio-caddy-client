@@ -38,7 +38,6 @@ const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
 
-// User actions
 // This code binds the signUp api call to a Sign Up button
 signUpContainer.addEventListener('submit', (event) => {
     event.preventDefault()
