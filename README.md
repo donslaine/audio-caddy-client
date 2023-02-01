@@ -20,9 +20,23 @@ Keep track of your record collection! I am an avid record collector, and I thoug
 
 The first view is the authentication view, where a user will be prompted to sign in or sign up. I they do not have an account already, they can sign up. Once the account is created, they will be prompted to sign in. 
 
-Once a user successfully signs in, they will be brought to the 'home page' view, which is an index all records in that user's collection. The user can return to this view at any time by pressing "Home" in the Nav Bar. If this is a new user, they will have to create a record to add it to their collection, which they can do by clicking the "create" button in the nav bar. This will bring up the input fields where they will add artist, album, etc, and the record will be created once they click the 'create record' button. Once the record is created, the user will be notified and sent back to the "Home Page" view, where they can see their collection with the new record added.
+![Audio Caddy Auth View](assets/audio-caddy-auth.png)
 
-Each record in the collection has a 'show record' button and a 'delete record' button. The delete button is self explanatory, it will delete the record from the collection. The 'show record' button will, when clicked, change to the 'show record' view. In this view the user can see the details of the record, including comments, which can be added and deleted directly from the 'show record' view. The 'edit record' button will send them to the 'edit' view, which is similar to the 'create' view, but it will have the current record details populated in the input boxes. Clicking 'update record' will update the record and send the user back to the 'home page' view.
+Once a user successfully signs in, they will be brought to the 'home page' view, which is an index all records in that user's collection. The user can return to this view at any time by pressing "Home" in the Nav Bar. 
+
+![Audio Cadd Index Collection](assets/audio-caddy-index.png)
+
+If this is a new user, they will have to create a record to add it to their collection, which they can do by clicking the "create" button in the nav bar. This will bring up the input fields where they will add artist, album, etc, and the record will be created once they click the 'create record' button. Once the record is created, the user will be notified and sent back to the "Home Page" view, where they can see their collection with the new record added.
+
+![Audio Caddy Create View](assets/audio-caddy-create.png)
+
+Each record in the collection has a 'show record' button and a 'delete record' button. The delete button is self explanatory, it will delete the record from the collection. The 'show record' button will, when clicked, change to the 'show record' view. In this view the user can see the details of the record, including comments, which can be added and deleted directly from the 'show record' view. 
+
+![Audio Caddy Show View](assets/audio-caddy-show.png)
+
+The 'edit record' button will send them to the 'edit' view, which is similar to the 'create' view, but it will have the current record details populated in the input boxes. Clicking 'update record' will update the record and send the user back to the 'home page' view.
+
+![Audio Caddy Update View](assets/audio-caddy-update.png)
 
 ## Next Steps
 

@@ -26,6 +26,7 @@ import {
     hideContainer,
 } from './ui.js'
 
+// DOM variable declarations
 const messageContainer = document.getElementById('message-container')
 const signUpContainer = document.getElementById('sign-up-container')
 const signInContainer = document.getElementById('sign-in-container')
@@ -37,7 +38,8 @@ const authContainer = document.getElementById('auth-container')
 const createContainer = document.getElementById('create-container')
 const homeButton = document.getElementById('home-button')
 
-//User actions
+// User actions
+// This code binds the signUp api call to a Sign Up button
 signUpContainer.addEventListener('submit', (event) => {
     event.preventDefault()
     const userData = {
@@ -51,6 +53,7 @@ signUpContainer.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
+// This code binds the signIn api call to a Sign In button
 signInContainer.addEventListener('submit', (event) => {
     event.preventDefault()
     homeButton.removeAttribute('style')
@@ -72,6 +75,7 @@ signInContainer.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
+// This delegates the different buttons in the index container to either 'show' or 'delete'
 indexContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
     const target = event.target.getAttribute('id')
@@ -98,6 +102,7 @@ indexContainer.addEventListener('click', (event) => {
     }
 })
 
+// This delegates the different buttons in the show container to either 'edit' or 'add comment' or 'delete comment'
 showRecordContainer.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.classList.contains('btn-update')) {
@@ -109,6 +114,7 @@ showRecordContainer.addEventListener('click', (event) => {
             .then(showContainer(editRecordContainer))
             .then(hideContainer(showRecordContainer))
             .catch(onFailure)
+
     } else if (event.target.classList.contains('btn-delete-comment')) {
         const commentId = event.target.getAttribute('data-comment')
         const recordId = event.target.getAttribute('data-id')
@@ -125,8 +131,8 @@ showRecordContainer.addEventListener('click', (event) => {
             .then(showContainer(indexContainer))
             .then(hideContainer(showRecordContainer))
             .catch(onFailure)
-    } 
-    else if (event.target.classList.contains('btn-create')) {
+
+    } else if (event.target.classList.contains('btn-create')) {
         const id = event.target.getAttribute('data-id')
         const commentBox = document.getElementById('comment-form')
         const commentData = {
@@ -146,6 +152,7 @@ showRecordContainer.addEventListener('click', (event) => {
     }
 })
 
+// this binds the button in the update container to the 'update' api call
 editRecordContainer.addEventListener('submit', (event) => {
     event.preventDefault()
     while (editRecordContainer.firstChild) {
@@ -172,6 +179,7 @@ editRecordContainer.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
+// this handles the showing and hiding of containers when the 'create' button is clicked
 createButton.addEventListener('click', () => {
     showContainer(createContainer)
     hideContainer(indexContainer)
@@ -180,6 +188,7 @@ createButton.addEventListener('click', () => {
     messageContainer.innerText = ''
 })
 
+// this binds the button in the create container to the 'create' api call
 createContainer.addEventListener('submit', (event) => {
     event.preventDefault()
     const recordData = {
@@ -201,6 +210,7 @@ createContainer.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
+// this handles the showing and hiding of containers when the 'home' button is clicked
 homeButton.addEventListener('click', () => {
     showContainer(indexContainer)
     hideContainer(createContainer)

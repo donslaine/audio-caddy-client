@@ -4,7 +4,6 @@ const messageContainer = document.getElementById('message-container')
 const indexContainer = document.getElementById('index-container')
 const showRecordContainer = document.getElementById('show-record-container')
 const editRecordContainer = document.getElementById('edit-record-container')
-// const showCommentContainer = document.getElementById('show-comment-container')
 
 // failure
 export const onFailure = (error) => {
@@ -14,16 +13,18 @@ export const onFailure = (error) => {
     `
 }
 
-// User
+// user creation success
 export const onSignUpSuccess = () => {
     messageContainer.innerText = 'You have created a new user! Please Sign in'
 }
 
+// stores user token in the bank for later use
 export const onSignInSuccess = (userToken) => {
     messageContainer.innerHTML = ''
     bank.userToken = userToken
 }
 
+// loops over the response data and appends a new div to the index container for each record in the collection
 export const onIndexRecordsSuccess = (records) => {
     while (indexContainer.firstChild) {
         indexContainer.removeChild(indexContainer.firstChild)
@@ -43,6 +44,7 @@ export const onIndexRecordsSuccess = (records) => {
     })
 }
 
+// creates a div with the full record information and buttons to control different actions
 export const onShowRecordSuccess = (record) => {
     messageContainer.innerText = ''
     const div = document.createElement('div')
@@ -62,6 +64,8 @@ export const onShowRecordSuccess = (record) => {
         </form>
     `
     showRecordContainer.appendChild(div)
+
+    // appends a new <p> to the container for each new comment
     const comments = record.comments;
     comments.forEach(element => {
         const comment = document.createElement('p')
@@ -76,6 +80,7 @@ export const onShowRecordSuccess = (record) => {
     })
 }
 
+// appends the edit fields to the edit container containing the current values
 export const onEditButtonClick = (record) => {
     messageContainer.innerText = ''
     while (editRecordContainer.firstChild) {
@@ -103,6 +108,7 @@ export const onEditButtonClick = (record) => {
     editRecordContainer.appendChild(div)
 }
 
+// these functions all create messages for success
 export const onCreateRecordSuccess = () => {
     messageContainer.innerText = 'You have successfully created a Record'
 }
@@ -123,6 +129,7 @@ export const onDeleteCommentSuccess = () => {
     messageContainer.innerText = 'You have successfully deleted a Comment'
 }
 
+// these functions are used to show and/or hide different containers based on whether or not the classList contains 'hide'
 export const hideContainer = (container) => {
     if (container.classList.contains('hide')) {
         return
