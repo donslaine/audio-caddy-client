@@ -1,5 +1,6 @@
 import { bank } from './tokenBank.js'
 
+// DOM element variable declarations
 const messageContainer = document.getElementById('message-container')
 const indexContainer = document.getElementById('index-container')
 const showRecordContainer = document.getElementById('show-record-container')
@@ -18,7 +19,7 @@ export const onSignUpSuccess = () => {
     messageContainer.innerText = 'You have created a new user! Please Sign in'
 }
 
-// stores user token in the bank for later use
+// stores user token in the bank for later use in api calls
 export const onSignInSuccess = (userToken) => {
     messageContainer.innerHTML = ''
     bank.userToken = userToken

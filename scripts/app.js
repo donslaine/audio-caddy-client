@@ -82,6 +82,7 @@ indexContainer.addEventListener('click', (event) => {
     while (showRecordContainer.firstChild) {
         showRecordContainer.removeChild(showRecordContainer.firstChild)
     }
+    // condition for show button 
     if (target === 'show-button') {
         showRecord(id)
             .then((res) => res.json())
@@ -89,6 +90,7 @@ indexContainer.addEventListener('click', (event) => {
             .then(showContainer(showRecordContainer))
             .then(hideContainer(indexContainer))
             .catch(onFailure)
+    // condition for delete button
     } else if (target === 'delete-button') {
         deleteRecord(id)
             .then(onDeleteRecordSuccess)
@@ -104,6 +106,7 @@ indexContainer.addEventListener('click', (event) => {
 // This delegates the different buttons in the show container to either 'edit' or 'add comment' or 'delete comment'
 showRecordContainer.addEventListener('click', (event) => {
     event.preventDefault()
+    // condition for edit record button
     if (event.target.classList.contains('btn-update')) {
         const id = event.target.getAttribute('data-id')
         if (!id) return
@@ -113,7 +116,7 @@ showRecordContainer.addEventListener('click', (event) => {
             .then(showContainer(editRecordContainer))
             .then(hideContainer(showRecordContainer))
             .catch(onFailure)
-
+    // condition for delete comment button click
     } else if (event.target.classList.contains('btn-delete-comment')) {
         const commentId = event.target.getAttribute('data-comment')
         const recordId = event.target.getAttribute('data-id')
@@ -130,7 +133,7 @@ showRecordContainer.addEventListener('click', (event) => {
             .then(showContainer(indexContainer))
             .then(hideContainer(showRecordContainer))
             .catch(onFailure)
-
+    // condition for add comment button
     } else if (event.target.classList.contains('btn-create')) {
         const id = event.target.getAttribute('data-id')
         const commentBox = document.getElementById('comment-form')
@@ -151,7 +154,7 @@ showRecordContainer.addEventListener('click', (event) => {
     }
 })
 
-// this binds the button in the update container to the 'update' api call
+// this binds the button in the update container to the 'update' functions
 editRecordContainer.addEventListener('submit', (event) => {
     event.preventDefault()
     while (editRecordContainer.firstChild) {
