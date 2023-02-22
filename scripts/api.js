@@ -2,7 +2,7 @@ import { bank } from './tokenBank.js'
 
 //User actions
 export const signUp = (data) => {
-    return fetch(`http://localhost:8000/sign-up`, {
+    return fetch(`https://audio-caddy-server.onrender.com/sign-up`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -13,7 +13,7 @@ export const signUp = (data) => {
 }
 
 export const signIn = (data) => {
-	return fetch(`http://localhost:8000/sign-in`, {
+	return fetch(`https://audio-caddy-server.onrender.com/sign-in`, {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
@@ -25,7 +25,7 @@ export const signIn = (data) => {
 
 //Record actions
 export const createRecord = (data) => {
-    return fetch(`http://localhost:8000/records`, {
+    return fetch(`https://audio-caddy-server.onrender.com/records`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -37,7 +37,7 @@ export const createRecord = (data) => {
 }
 
 export const indexRecord = () => {
-    return fetch(`http://localhost:8000/records`, {
+    return fetch(`https://audio-caddy-server.onrender.com/records`, {
         headers: {
             'Authorization': `Bearer ${bank.userToken}`
         }
@@ -45,7 +45,7 @@ export const indexRecord = () => {
 }
 
 export const showRecord = (id) => {
-    return fetch(`http://localhost:8000/records/${id}`, {
+    return fetch(`https://audio-caddy-server.onrender.com/records/${id}`, {
         headers: {
             'Authorization': `Bearer ${bank.userToken}`
         }
@@ -53,7 +53,7 @@ export const showRecord = (id) => {
 }
 
 export const updateRecord = (data, id) => {
-    return fetch(`http://localhost:8000/records/${id}`, {
+    return fetch(`https://audio-caddy-server.onrender.com/records/${id}`, {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
@@ -65,7 +65,7 @@ export const updateRecord = (data, id) => {
 }
 
 export const deleteRecord = (id) => {
-    return fetch(`http://localhost:8000/records/${id}`, {
+    return fetch(`https://audio-caddy-server.onrender.com/records/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${bank.userToken}`
@@ -75,7 +75,7 @@ export const deleteRecord = (id) => {
 
 //comment actions
 export const createComment = (data) => {
-    return fetch(`http://localhost:8000/comments`, {
+    return fetch(`https://audio-caddy-server.onrender.com/comments`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -87,7 +87,7 @@ export const createComment = (data) => {
 }
 
 export const deleteComment = (data, id) => {
-    return fetch(`http://localhost:8000/comments/${id}`, {
+    return fetch(`https://audio-caddy-server.onrender.com/comments/${id}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
